@@ -40,11 +40,11 @@ function findDependencies(source, opts) {
   var moduleValues = _.values(modules);
 
   // aggregates all root + sub depedencies, and remove ones that were declared locally
-  rootDeps = _(rootDeps).union(_.flatten(moduleValues)).unique().value();
+  rootDeps = _(rootDeps).union(_.flatten(moduleValues)).uniq().value();
   rootDeps = _.difference(rootDeps, moduleKeys);
 
   var isAngular = moduleKeys.length > 0 || rootDeps.length > 0;
-  if (isAngular && !_.has(modules, 'ng') && !_.any(rootDeps, 'ng')) {
+  if (isAngular && !_.has(modules, 'ng') && !_.some(rootDeps, 'ng')) {
     rootDeps.unshift('ng');
   }
 
